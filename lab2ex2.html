@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Lab2Ex2</title>
+
+<style>
+    canvas{
+        border:1px solid black;
+    }
+</style>
+
+<script>
+
+let canvas;
+let graphics;
+let dragging = false;
+
+function init() {
+
+    canvas = document.getElementById("myCanvas");
+    graphics = canvas.getContext("2d");
+
+    canvas.onmousedown = doMouseDown;
+    canvas.onmouseup = doMouseUp;
+    canvas.onmousemove = doMouseMove;
+
+    document.getElementById("clearButton").onclick = doClear;
+}
+
+function doClear(){
+    graphics.clearRect(0,0,canvas.width,canvas.height);
+}
+
+function doMouseDown(evt){
+    dragging = true;
+}
+
+function doMouseUp(evt){
+    dragging = false;
+}
+
+function doMouseMove(evt){
+
+    if(!dragging) return;
+
+    let rect = canvas.getBoundingClientRect();
+    let x = evt.clientX - rect.left;
+    let y = evt.clientY - rect.top;
+
+    let color = document.getElementById("colorChoice").value;
+    let tool = document.getElementById("toolChoice").value;
+
+    graphics.fillStyle = color;
+
+    if(tool === "square"){
+        drawSquare(x,y);
+    }
+
+    if(tool === "polygon"){
+        drawPolygon(x,y);
+    }
+}
+
+function drawSquare(x,y){
+    graphics.fillRect(x-10,y-10,20,20);
+}
+
+function drawPolygon(x,y){
+
+    let sides = 6;
+    let radius = 20;
+
+    graphics.save();
+
+    graphics.translate(x,y);
+    graphics.rotate(Math.PI/6);
+
+    graphics.beginPath();
+
+    for(let i=0;i<sides;i++){
+
+        let angle = i * 2 * Math.PI / sides;
+
+        let px = radius * Math.cos(angle);
+        let py = radius * Math.sin(angle);
+
+        if(i===0)
+            graphics.moveTo(px,py);
+        else
+            graphics.lineTo(px,py);
+    }
+
+    graphics.closePath();
+    graphics.fill();
+
+    graphics.restore();
+}
+
+</script>
+
+</head>
+
+<body onload="init()">
+
+<h2>Canvas Drawing</h2>
+
+Color:
+<select id="colorChoice">
+<option value="black">Black</option>
+<option value="yellow">Yellow</option>
+</select>
+
+Tool:
+<select id="toolChoice">
+<option value="square">Squares</option>
+<option value="polygon">Polygons</option>
+</select>
+
+<button id="clearButton">Clear</button>
+
+<br><br>
+
+<canvas id="myCanvas" width="600" height="400"></canvas>
+
+</body>
+</html>

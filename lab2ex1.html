@@ -1,0 +1,58 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Moon Canvas</title>
+</head>
+
+<body>
+
+<canvas id="canvas" width="400" height="400"></canvas>
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+ctx.fillStyle = "#7fd1cf";
+ctx.fillRect(0,0,400,400);
+
+ctx.fillStyle = "yellow";
+ctx.beginPath();
+ctx.arc(200,200,120,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle = "#7fd1cf";
+ctx.beginPath();
+ctx.arc(130,170,120,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.arc(250,180,10,0,Math.PI*2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(280,180,10,0,Math.PI*2);
+ctx.fill();
+
+ctx.fillStyle = "black";
+ctx.beginPath();
+ctx.arc(250,180,4,0,Math.PI*2);
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(280,180,4,0,Math.PI*2);
+ctx.fill();
+
+ctx.strokeStyle = "black";
+ctx.lineWidth = 3;
+ctx.beginPath();
+ctx.arc(270,210,25,0,Math.PI);
+ctx.stroke();
+
+</script>
+
+</body>
+</html>
+```
